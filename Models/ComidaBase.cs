@@ -1,32 +1,41 @@
 namespace Models;
 
-public abstract class ComidaBase {
+public abstract class ComidaBase 
+{
+    public int Id { get; set; }
+    public string Nombre { get; set; } = "";
+    public string Descripcion { get; set; } = "";
+    public string Imagen { get; set; } = "";
+    public decimal Precio { get; set; } = 0; 
+    public double Calorias { get; set; } = 0.0;
+    public double Proteinas { get; set; } = 0.0;
+    public double Carbohidratos { get; set; } = 0.0;
+    public double Grasas { get; set; } = 0.0;
 
-    public int Id  {get;set;}
-    public string Nombre {get;set;} = "";
-    public double Calorias {get;set;} = 0.0;
-    public string Descripcion {get;set;} = "";
-    public double Precio {get;set;} = 0.0;
-    public string Imagen {get;set;} = "";
 
+    public ComidaBase() { }
 
-    public ComidaBase(){}
-
-    public ComidaBase(string nombre, double calorias, string descripcion, double precio, string imagen) {
+    public ComidaBase(string nombre, string descripcion, string imagen, decimal precio, double calorias, double proteinas, double carbohidratos, double grasas) 
+    {
         Nombre = nombre;
-        Calorias = calorias;
         Descripcion = descripcion;
-        Precio = precio;
         Imagen = imagen;
+        Precio = precio;
+        Calorias = calorias;
+        Proteinas = proteinas;
+        Carbohidratos = carbohidratos;
+        Grasas = grasas;
 
-        if (nombre is null) {
-            throw new ArgumentException("El nombre no puede ser nulo");
+        if (string.IsNullOrWhiteSpace(nombre)) {
+            throw new ArgumentException("El nombre no puede estar vacío");
         }
 
         if (precio < 0) {
             throw new ArgumentException("El precio no puede ser negativo");
         }
-
+        
+        if (calorias < 0 || proteinas < 0 || carbohidratos < 0 || grasas < 0) {
+            throw new ArgumentException("Los valores nutricionales no pueden ser negativos");
+        }
     }
- 
 }

@@ -1,4 +1,4 @@
-using Models;
+using SuplementosAPI.Models;
 
 public class Proteina : SuplementoBase {
 
@@ -7,7 +7,7 @@ public string Tipo {get;set;} = "";
 public string Sabor {get;set;} = "";
 
 
-public Proteina(string nombre, double precio, string descripcion, string categoria, double peso, string imagen, string formato, string tipo, string sabor): base(nombre, precio, descripcion, categoria, peso, imagen) {
+public Proteina(string nombre, decimal precio, int stock, string descripcion, double peso, string imagen, string formato, string tipo, string sabor): base(nombre, precio, stock, descripcion, peso, imagen) {
     Formato = formato;
     Tipo = tipo;
     Sabor = sabor;

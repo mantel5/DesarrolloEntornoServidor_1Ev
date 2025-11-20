@@ -1,36 +1,40 @@
-using Models;
+using SuplementosAPI.Models;
 
-public class PreEntreno : SuplementoBase {
-
-public string Formato {get;set;} = "";
-public string Tipo {get;set;} = "";
-public string Sabor {get;set;} = "";
-public int MgCafeina {get;set;}
-
-
-public PreEntreno(string nombre, double precio, string descripcion, string categoria, double peso, string imagen, string formato, string tipo, string sabor, int mgCafeina): base(nombre, precio, descripcion, categoria, peso, imagen) {
-    Formato = formato;
-    Tipo = tipo;
-    Sabor = sabor;
-    MgCafeina = mgCafeina;
-    
-    if ( formato is null)
+namespace SuplementosAPI.Models
+{
+    public class PreEntreno : SuplementoBase 
     {
-        throw new ArgumentException("El formato no puede ser nulo");
-    }
+        public string Formato { get; set; } = ""; 
+        public string Tipo { get; set; } = "";    
+        public string Sabor { get; set; } = "";   
+        public int MgCafeina { get; set; }        
+        public bool TieneBetaAlanina { get; set; } 
 
-     if ( tipo is null)
-    {
-        throw new ArgumentException("El tipo no puede ser nulo");
-    }
+        public PreEntreno() { }
 
-     if ( mgCafeina < 0)
-    {
-        throw new ArgumentException("Los miligramos no pueden ser 0");
+        public PreEntreno(string nombre, decimal precio, int stock, string descripcion, double peso, string imagen, string formato, string tipo, string sabor, int mgCafeina, bool tieneBetaAlanina) 
+            : base(nombre, precio, stock, descripcion, peso, imagen) 
+        {
+            // Validaciones
+            if (string.IsNullOrWhiteSpace(formato)) 
+                throw new ArgumentException("El formato es obligatorio.");
+
+            if (string.IsNullOrWhiteSpace(tipo)) 
+                throw new ArgumentException("El tipo es obligatorio.");
+
+            if (string.IsNullOrWhiteSpace(sabor)) 
+                throw new ArgumentException("El sabor es obligatorio.");
+
+            if (mgCafeina < 0) 
+            {
+                throw new ArgumentException("La cafeína no puede ser negativa.");
+            }
+
+            Formato = formato;
+            Tipo = tipo;
+            Sabor = sabor;
+            MgCafeina = mgCafeina;
+            TieneBetaAlanina = tieneBetaAlanina;
+        }
     }
 }
-
-public PreEntreno() { }
-
-}
-
