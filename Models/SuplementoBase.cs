@@ -37,7 +37,5 @@ public abstract class SuplementoBase {
             throw new ArgumentException("El peso no puede ser negativo");
         }
     }
-
-    public abstract void MostrarDetalles();
  
 }
