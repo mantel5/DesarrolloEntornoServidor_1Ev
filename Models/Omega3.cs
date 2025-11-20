@@ -4,13 +4,13 @@ public class Omega3 : SuplementoBase {
 
 public string Formato {get;set;} = "";
 public string Tipo {get;set;} = "";
-public string Sabor {get;set;} = "";
 
 
-public Omega3(string nombre, double precio, string descripcion, string categoria, double peso, string imagen, string formato, string tipo, string sabor): base(nombre, precio, descripcion, categoria, peso, imagen) {
+
+public Omega3(string nombre, double precio, string descripcion, string categoria, double peso, string imagen, string formato, string tipo): base(nombre, precio, descripcion, categoria, peso, imagen) {
     Formato = formato;
     Tipo = tipo;
-    Sabor = sabor;
+    
     
     if ( formato is null)
     {
