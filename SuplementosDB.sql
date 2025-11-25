@@ -1,8 +1,8 @@
 CREATE DATABASE SuplementosDB;
-GO
+
 
 USE SuplementosDB;
-GO
+
 
 IF OBJECT_ID('Creatina', 'U') IS NOT NULL DROP TABLE Creatina;
 CREATE TABLE Creatina (
