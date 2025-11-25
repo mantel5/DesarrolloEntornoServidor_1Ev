@@ -1,41 +1,27 @@
-namespace Models;
-
-public abstract class ComidaBase 
+namespace SuplementosAPI.Models
 {
-    public int Id { get; set; }
-    public string Nombre { get; set; } = "";
-    public string Descripcion { get; set; } = "";
-    public string Imagen { get; set; } = "";
-    public decimal Precio { get; set; } = 0; 
-    public double Calorias { get; set; } = 0.0;
-    public double Proteinas { get; set; } = 0.0;
-    public double Carbohidratos { get; set; } = 0.0;
-    public double Grasas { get; set; } = 0.0;
-
-
-    public ComidaBase() { }
-
-    public ComidaBase(string nombre, string descripcion, string imagen, decimal precio, double calorias, double proteinas, double carbohidratos, double grasas) 
+    public abstract class ComidaBase : ProductoBase
     {
-        Nombre = nombre;
-        Descripcion = descripcion;
-        Imagen = imagen;
-        Precio = precio;
-        Calorias = calorias;
-        Proteinas = proteinas;
-        Carbohidratos = carbohidratos;
-        Grasas = grasas;
+        // Nutrición por 100g
+        public double Calorias { get; set; }
+        public double Proteinas { get; set; }
+        public double Carbohidratos { get; set; }
+        public double Grasas { get; set; }
 
-        if (string.IsNullOrWhiteSpace(nombre)) {
-            throw new ArgumentException("El nombre no puede estar vacío");
-        }
+        public ComidaBase() { }
 
-        if (precio < 0) {
-            throw new ArgumentException("El precio no puede ser negativo");
-        }
-        
-        if (calorias < 0 || proteinas < 0 || carbohidratos < 0 || grasas < 0) {
-            throw new ArgumentException("Los valores nutricionales no pueden ser negativos");
+        protected ComidaBase(
+            string nombre, decimal precio, int stock, string descripcion, string imagen, // Del Padre
+            double calorias, double proteinas, double carbohidratos, double grasas) // Suyos
+            : base(nombre, descripcion, imagen, precio, stock) // Enviamos al Padre
+        {
+            if (calorias < 0 || proteinas < 0 || carbohidratos < 0 || grasas < 0)
+                throw new ArgumentException("Los macros no pueden ser negativos.");
+
+            Calorias = calorias;
+            Proteinas = proteinas;
+            Carbohidratos = carbohidratos;
+            Grasas = grasas;
         }
     }
 }
