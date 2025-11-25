@@ -1,6 +1,11 @@
+using SuplementosAPI.Repositories;
+using SuplementosAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+builder.Services.AddScoped<ICreatinaRepository, CreatinaRepository>();
+builder.Services.AddScoped<ICreatinaService, CreatinaService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
