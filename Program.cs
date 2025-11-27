@@ -12,6 +12,8 @@ builder.Services.AddScoped<ISalsaRepository, SalsaRepository>();
 builder.Services.AddScoped<ISalsaService, SalsaService>();
 builder.Services.AddScoped<ITortitasRepository, TortitasRepository>();
 builder.Services.AddScoped<ITortitasService, TortitasService>();
+builder.Services.AddScoped<IBebidaRepository, BebidaRepository>();
+builder.Services.AddScoped<IBebidaService, BebidaService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
