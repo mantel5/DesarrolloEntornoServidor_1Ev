@@ -6,13 +6,13 @@ namespace SuplementosAPI.Models
         public int Id { get; set; }
         public string Nombre { get; set; } = "";
         public string Descripcion { get; set; } = "";
-        public string Imagen { get; set; } = ""; // URL de la foto
-        public decimal Precio { get; set; }      // Dinero siempre decimal
-        public int Stock { get; set; }           // Cantidad en almacén
+        public string Imagen { get; set; } = "";
+        public decimal Precio { get; set; }      
+        public int Stock { get; set; }           
 
         public ProductoBase() { }
 
-        // Constructor base
+        // usamos un constructor protegido para que solo las clases derivadas puedan llamarlo
         protected ProductoBase(string nombre, string descripcion, string imagen, decimal precio, int stock)
         {
             if (string.IsNullOrWhiteSpace(nombre)) throw new ArgumentException("El nombre es obligatorio.");
