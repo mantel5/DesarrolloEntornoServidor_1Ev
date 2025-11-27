@@ -9,6 +9,6 @@ namespace SuplementosAPI.Repositories
         Task<Tortitas?> GetByIdAsync(int id);
         Task<List<Tortitas>> GetAllAsync(QueryParamsTortitas filtros);
         Task UpdateAsync(Tortitas tortitas);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(int id); 
     }
 }

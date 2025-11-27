@@ -164,7 +164,7 @@ namespace SuplementosAPI.Repositories
         private Tortitas MapReaderToTortitas(SqlDataReader reader)
         {
             return new Tortitas
-            {
+            { 
                 Id = Convert.ToInt32(reader["Id"]),
                 // Abuelo
                 Nombre = reader["Nombre"].ToString()!,
