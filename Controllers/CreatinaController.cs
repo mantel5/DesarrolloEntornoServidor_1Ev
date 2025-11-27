@@ -18,10 +18,7 @@ namespace SuplementosAPI.Controllers
             _service = service;
         }
 
-        // ---------------------------------------------------------
-        // 1. GET ALL (LISTA) - CON FILTROS
-        // URL Ej: api/Creatina?precioMax=30&soloCreapure=true
-        // ---------------------------------------------------------
+        // GetAll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Creatina>>> GetAll(
             [FromQuery] QueryParamsCreatina filtros)
@@ -30,10 +27,7 @@ namespace SuplementosAPI.Controllers
             return Ok(lista);
         }
 
-        // ---------------------------------------------------------
-        // 2. GET BY ID (DETALLE)
-        // URL Ej: api/Creatina/5
-        // ---------------------------------------------------------
+        // GetById
         [HttpGet("{id}")]
         public async Task<ActionResult<Creatina>> GetById([FromRoute] int id)
         {
@@ -47,27 +41,19 @@ namespace SuplementosAPI.Controllers
             return Ok(creatina);
         }
 
-        // ---------------------------------------------------------
-        // 3. POST (CREAR)
-        // Recibe el DTO en el cuerpo del mensaje (JSON)
-        // ---------------------------------------------------------
+        // Post
         [HttpPost]
         public async Task<ActionResult<Creatina>> Create([FromBody] CreatinaCreateDto dto)
         {
             try
             {
-                // Llamamos al servicio.
-                // Si el DTO trae datos malos (ej: precio negativo),
-                // el CONSTRUCTOR del Modelo lanzará una excepción aquí.
                 var nuevaCreatina = await _service.CreateAsync(dto);
 
-                // Devolvemos 201 Created y la URL para ver el producto
                 return CreatedAtAction(nameof(GetById), new { id = nuevaCreatina.Id }, nuevaCreatina);
             }
             catch (ArgumentException ex)
             {
-                // Capturamos tus validaciones (precio negativo, nombre vacío...)
-                // y devolvemos un 400 Bad Request limpio.
+                
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
@@ -76,9 +62,7 @@ namespace SuplementosAPI.Controllers
             }
         }
 
-        // ---------------------------------------------------------
-        // 4. DELETE (BORRAR)
-        // ---------------------------------------------------------
+        // Delete
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
@@ -93,6 +77,5 @@ namespace SuplementosAPI.Controllers
             }
         }
         
-        // (Opcional) Podrías añadir aquí el PUT para actualizar
     }
 }
