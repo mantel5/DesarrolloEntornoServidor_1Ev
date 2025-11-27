@@ -27,7 +27,7 @@ namespace SuplementosAPI.Controllers
             var lista = await _service.GetAllAsync(filtros);
             return Ok(lista);
         }
-
+ 
         // 2. GET BY ID
         [HttpGet("{id}")]
         public async Task<ActionResult<Salsa>> GetById([FromRoute] int id)
