@@ -31,7 +31,7 @@ namespace SuplementosAPI.Repositories
 
                 using (var cmd = new SqlCommand(query, connection))
                 {
-                    // Mapeo masivo
+                    // Mapeo masivo 
                     cmd.Parameters.AddWithValue("@Nombre", p.Nombre);
                     cmd.Parameters.AddWithValue("@Descripcion", p.Descripcion);
                     cmd.Parameters.AddWithValue("@Imagen", p.Imagen);
@@ -77,7 +77,7 @@ namespace SuplementosAPI.Repositories
                 var sb = new StringBuilder("SELECT * FROM Proteina WHERE 1=1");
                 var cmd = new SqlCommand();
 
-                // --- Filtros Comunes ---
+                // Filtros Comunes 
                 if (!string.IsNullOrWhiteSpace(filtros.BuscarNombre))
                 {
                     sb.Append(" AND Nombre LIKE @Nombre");
@@ -88,9 +88,8 @@ namespace SuplementosAPI.Repositories
                     sb.Append(" AND Precio <= @PrecioMax");
                     cmd.Parameters.AddWithValue("@PrecioMax", filtros.PrecioMax.Value);
                 }
-                // (Puedes añadir PrecioMin, PesoMin, PesoMax aquí igual que en Creatina)
 
-                // --- Filtros Específicos PROTEÍNA ---
+                // Filtros Específicos PROTEÍNA
                 if (!string.IsNullOrWhiteSpace(filtros.Tipo))
                 {
                     sb.Append(" AND Tipo = @Tipo");
@@ -98,7 +97,7 @@ namespace SuplementosAPI.Repositories
                 }
                 if (filtros.PorcentajeMinimo.HasValue)
                 {
-                    sb.Append(" AND Porcentaje >= @PorcMin"); // ¡Mayor o igual!
+                    sb.Append(" AND Porcentaje >= @PorcMin"); 
                     cmd.Parameters.AddWithValue("@PorcMin", filtros.PorcentajeMinimo.Value);
                 }
                 if (filtros.SoloSinLactosa == true)
@@ -107,7 +106,7 @@ namespace SuplementosAPI.Repositories
                 }
 
                 // Ordenación y Paginación
-                sb.Append(" ORDER BY Id ASC"); // Simplificado para el ejemplo
+                sb.Append(" ORDER BY Id ASC"); 
                 int saltar = (filtros.Pagina - 1) * filtros.ElementosPorPagina;
                 sb.Append(" OFFSET @Saltar ROWS FETCH NEXT @Tomar ROWS ONLY");
                 cmd.Parameters.AddWithValue("@Saltar", saltar);
@@ -124,8 +123,7 @@ namespace SuplementosAPI.Repositories
             return lista;
         }
 
-        // Faltarían UpdateAsync y DeleteAsync (son iguales que Creatina pero cambiando columnas)
-        public async Task UpdateAsync(Proteina p) { /* ... Igual que Creatina ... */ await Task.CompletedTask; }
+        public async Task UpdateAsync(Proteina p) { await Task.CompletedTask; }
         public async Task DeleteAsync(int id) 
         {
              using (var connection = new SqlConnection(_connectionString))

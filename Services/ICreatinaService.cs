@@ -9,7 +9,7 @@ namespace SuplementosAPI.Services
         Task<Creatina> CreateAsync(CreatinaCreateDto dto);
         Task<List<Creatina>> GetAllAsync(QueryParamsCreatina filtros);
         Task<Creatina?> GetByIdAsync(int id);
-        Task UpdateAsync(int id, CreatinaCreateDto dto); // Opcional por ahora
+        Task UpdateAsync(int id, CreatinaCreateDto dto); 
         Task DeleteAsync(int id);
     }
 }

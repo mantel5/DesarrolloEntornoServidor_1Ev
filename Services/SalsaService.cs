@@ -14,28 +14,25 @@ namespace SuplementosAPI.Services
             _repository = repository;
         }
 
-        // 1. CREAR
+        // Crear
         public async Task<Salsa> CreateAsync(SalsaCreateDto dto)
         {
-            // Aquí instanciamos el modelo.
-            // Si el DTO trae macros negativos o precio negativo,
-            // el constructor de 'ComidaBase' o 'ProductoBase' lanzará la excepción.
             
             var nuevaSalsa = new Salsa(
-                // --- Abuelo (ProductoBase) ---
+                // Abuelo (ProductoBase)
                 dto.Nombre, 
                 dto.Precio, 
                 dto.Stock, 
                 dto.Descripcion, 
                 dto.Imagen,
                 
-                // --- Padre (ComidaBase - Macros) ---
+                // Padre (ComidaBase - Macros)
                 dto.Calorias, 
                 dto.Proteinas, 
                 dto.Carbohidratos, 
                 dto.Grasas,
                 
-                // --- Hijo (Salsa) ---
+                // Hijo (Salsa)
                 dto.Sabor, 
                 dto.EsPicante, 
                 dto.EsZero
@@ -45,19 +42,19 @@ namespace SuplementosAPI.Services
             return nuevaSalsa;
         }
 
-        // 2. LEER TODOS (Passthrough al repo)
+        // Get ALL con filtros
         public async Task<List<Salsa>> GetAllAsync(QueryParamsSalsa filtros)
         {
             return await _repository.GetAllAsync(filtros);
         }
 
-        // 3. LEER UNO
+        // GetById
         public async Task<Salsa?> GetByIdAsync(int id)
         {
             return await _repository.GetByIdAsync(id);
         }
 
-        // 4. BORRAR (Con validación previa)
+        // Delete
         public async Task DeleteAsync(int id)
         {
             var existe = await _repository.GetByIdAsync(id);

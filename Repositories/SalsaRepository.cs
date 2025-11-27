@@ -16,15 +16,13 @@ namespace SuplementosAPI.Repositories
                 ?? throw new Exception("Falta conexión en appsettings");
         }
 
-        // =========================================================
-        // 1. ADD (INSERT) - GUARDAMOS MACROS Y DATOS
-        // =========================================================
+        // Guardamos en la BD una nueva Salsa
         public async Task AddAsync(Salsa s)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-
+                
                 string query = @"
                     INSERT INTO Salsa 
                     (
@@ -67,9 +65,7 @@ namespace SuplementosAPI.Repositories
             }
         }
 
-        // =========================================================
-        // 2. GET BY ID
-        // =========================================================
+       // GetById
         public async Task<Salsa?> GetByIdAsync(int id)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -87,9 +83,7 @@ namespace SuplementosAPI.Repositories
             return null;
         }
 
-        // =========================================================
-        // 3. GET ALL - CON FILTROS DE NUTRICIÓN (MACROS)
-        // =========================================================
+        // GetAll con filtros
         public async Task<List<Salsa>> GetAllAsync(QueryParamsSalsa filtros)
         {
             var lista = new List<Salsa>();
@@ -99,7 +93,7 @@ namespace SuplementosAPI.Repositories
                 var sb = new StringBuilder("SELECT * FROM Salsa WHERE 1=1");
                 var cmd = new SqlCommand();
 
-                // --- FILTROS ABUELO (ProductoBase) ---
+                // FILTROS ABUELO (ProductoBase
                 if (!string.IsNullOrWhiteSpace(filtros.BuscarNombre))
                 {
                     sb.Append(" AND Nombre LIKE @Nombre");
@@ -111,8 +105,7 @@ namespace SuplementosAPI.Repositories
                     cmd.Parameters.AddWithValue("@PrecioMax", filtros.PrecioMax.Value);
                 }
 
-                // --- FILTROS PADRE (ComidaBase - Macros) ---
-                // Aquí permitimos al usuario buscar cosas "Light" o "Proteicas"
+                // FILTROS PADRE (ComidaBase - Macros)
                 
                 if (filtros.CaloriasMax.HasValue)
                 {
@@ -135,7 +128,7 @@ namespace SuplementosAPI.Repositories
                     cmd.Parameters.AddWithValue("@CarbsMax", filtros.CarbohidratosMax.Value);
                 }
 
-                // --- FILTROS HIJO (Salsa) ---
+                // FILTROS HIJO (Salsa)
                 if (!string.IsNullOrWhiteSpace(filtros.Sabor))
                 {
                     sb.Append(" AND Sabor = @Sabor");
@@ -150,8 +143,8 @@ namespace SuplementosAPI.Repositories
                     sb.Append(" AND EsPicante = 1");
                 }
 
-                // --- ORDENACIÓN Y PAGINACIÓN ---
-                sb.Append(" ORDER BY Id ASC"); // Simplificado
+                // ORDENACIÓN Y PAGINACIÓN 
+                sb.Append(" ORDER BY Id ASC"); 
                 
                 int saltar = (filtros.Pagina - 1) * filtros.ElementosPorPagina;
                 sb.Append(" OFFSET @Saltar ROWS FETCH NEXT @Tomar ROWS ONLY");
@@ -169,9 +162,9 @@ namespace SuplementosAPI.Repositories
             return lista;
         }
 
-        // =========================================================
-        // 4. UPDATE
-        // =========================================================
+        
+        
+        // Update
         public async Task UpdateAsync(Salsa s)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -189,7 +182,6 @@ namespace SuplementosAPI.Repositories
                 using (var cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@Id", s.Id);
-                    // ... (Mismos parámetros que en AddAsync) ...
                     cmd.Parameters.AddWithValue("@Nombre", s.Nombre);
                     cmd.Parameters.AddWithValue("@Descripcion", s.Descripcion);
                     cmd.Parameters.AddWithValue("@Imagen", s.Imagen);
@@ -208,9 +200,8 @@ namespace SuplementosAPI.Repositories
             }
         }
 
-        // =========================================================
-        // 5. DELETE
-        // =========================================================
+        
+        // Delete
         public async Task DeleteAsync(int id)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -224,9 +215,8 @@ namespace SuplementosAPI.Repositories
             }
         }
 
-        // =========================================================
-        // HELPER
-        // =========================================================
+        
+        // HELPER METHOD - Mapeo de DataReader a Salsa
         private Salsa MapReaderToSalsa(SqlDataReader reader)
         {
             return new Salsa

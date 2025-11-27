@@ -8,8 +8,6 @@ namespace SuplementosAPI.Repositories
         Task<List<Creatina>> GetAllAsync(QueryParamsCreatina filtros);
         Task<Creatina?> GetByIdAsync(int id);
         Task AddAsync(Creatina creatina);
-        
-        // --- NUEVOS ---
         Task UpdateAsync(Creatina creatina);
         Task DeleteAsync(int id);
     }

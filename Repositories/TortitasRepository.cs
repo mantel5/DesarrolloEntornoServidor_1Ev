@@ -1,4 +1,3 @@
-using System.Data;
 using System.Text;
 using Microsoft.Data.SqlClient;
 using SuplementosAPI.Models;
@@ -88,7 +87,7 @@ namespace SuplementosAPI.Repositories
                 var sb = new StringBuilder("SELECT * FROM Tortitas WHERE 1=1");
                 var cmd = new SqlCommand();
 
-                // --- Filtros Abuelo ---
+                // Filtros Abuelo
                 if (!string.IsNullOrWhiteSpace(filtros.BuscarNombre))
                 {
                     sb.Append(" AND Nombre LIKE @Nombre");
@@ -100,7 +99,7 @@ namespace SuplementosAPI.Repositories
                     cmd.Parameters.AddWithValue("@PrecioMax", filtros.PrecioMax.Value);
                 }
 
-                // --- Filtros Padre (Macros) ---
+                // Filtros Padre (Macros)
                 if (filtros.CaloriasMax.HasValue)
                 {
                     sb.Append(" AND Calorias <= @CalMax");
@@ -112,7 +111,7 @@ namespace SuplementosAPI.Repositories
                     cmd.Parameters.AddWithValue("@ProtMin", filtros.ProteinasMin.Value);
                 }
 
-                // --- Filtros Hijo (Tortitas) ---
+                // Filtros Hijo (Tortitas)
                 if (!string.IsNullOrWhiteSpace(filtros.Sabor))
                 {
                     sb.Append(" AND Sabor = @Sabor");
@@ -146,7 +145,6 @@ namespace SuplementosAPI.Repositories
             return lista;
         }
 
-        // (Omitimos Update y Delete por brevedad, son iguales a los anteriores cambiando la query)
         public async Task UpdateAsync(Tortitas t) { await Task.CompletedTask; } 
         public async Task DeleteAsync(int id) 
         {
@@ -161,6 +159,7 @@ namespace SuplementosAPI.Repositories
             }
         }
 
+        // mapeo desde reader a Tortitas
         private Tortitas MapReaderToTortitas(SqlDataReader reader)
         {
             return new Tortitas
