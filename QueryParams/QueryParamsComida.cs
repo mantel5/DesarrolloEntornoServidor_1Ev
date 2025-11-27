@@ -2,8 +2,7 @@ namespace SuplementosAPI.QueryParams
 {
     public class QueryParamsComida : QueryParamsBase
     {
-        // Filtros Nutricionales (¡Esto es oro para una tienda fitness!)
-        // "Quiero algo con menos de 50 kcal"
+        // Filtros Nutricionales 
         public double? CaloriasMax { get; set; }
         
         // "Quiero algo con al menos 20g de proteína"
