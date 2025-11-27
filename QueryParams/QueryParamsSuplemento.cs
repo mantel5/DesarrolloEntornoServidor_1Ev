@@ -6,7 +6,9 @@ namespace SuplementosAPI.QueryParams
         public double? PesoMin { get; set; }
         public double? PesoMax { get; set; }
         
-        // Nota: No ponemos filtro de 'Categoria' porque cada Controller
-        // ya sabe qué categoría es (ej: el CreatinaController solo devuelve creatinas).
+        // no hace falta agregar un filtro por Categoria aquí, porque ya está en QueryParamsBase
+        
+
+        
     }
 }
