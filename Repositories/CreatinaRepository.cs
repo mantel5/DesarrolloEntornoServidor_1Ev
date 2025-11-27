@@ -117,7 +117,7 @@ namespace SuplementosAPI.Repositories
                     cmd.Parameters.AddWithValue("@PrecioMax", filtros.PrecioMax.Value);
                 }
 
-                // --- FILTROS PADRE (SuplementoBase) ---
+                // FILTROS PADRE (SuplementoBase)
                 if (filtros.PesoMin.HasValue)
                 {
                     queryBuilder.Append(" AND PesoKg >= @PesoMin");
@@ -129,7 +129,7 @@ namespace SuplementosAPI.Repositories
                     cmd.Parameters.AddWithValue("@PesoMax", filtros.PesoMax.Value);
                 }
 
-                // --- FILTROS HIJO (Creatina) ---
+                // FILTROS HIJO (Creatina)
                 if (!string.IsNullOrWhiteSpace(filtros.Sabor))
                 {
                     // Búsqueda exacta para desplegables
@@ -155,7 +155,7 @@ namespace SuplementosAPI.Repositories
                     queryBuilder.Append(" AND EsMicronizada = 1");
                 }
 
-                // --- ORDENACIÓN ---
+                // ORDENACIÓN
                 if (!string.IsNullOrWhiteSpace(filtros.OrdenarPor))
                 {
                     switch (filtros.OrdenarPor.ToLower())
@@ -171,7 +171,7 @@ namespace SuplementosAPI.Repositories
                     queryBuilder.Append(" ORDER BY Id ASC"); // Necesario para paginación
                 }
 
-                // --- PAGINACIÓN ---
+                // PAGINACIÓN
                 int saltar = (filtros.Pagina - 1) * filtros.ElementosPorPagina;
                 queryBuilder.Append(" OFFSET @Saltar ROWS FETCH NEXT @Tomar ROWS ONLY");
                 cmd.Parameters.AddWithValue("@Saltar", saltar);
