@@ -8,6 +8,8 @@ builder.Services.AddScoped<ICreatinaRepository, CreatinaRepository>();
 builder.Services.AddScoped<ICreatinaService, CreatinaService>();
 builder.Services.AddScoped<IProteinaRepository, ProteinaRepository>();
 builder.Services.AddScoped<IProteinaService, ProteinaService>();
+builder.Services.AddScoped<ISalsaRepository, SalsaRepository>();
+builder.Services.AddScoped<ISalsaService, SalsaService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
