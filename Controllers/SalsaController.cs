@@ -18,8 +18,7 @@ namespace SuplementosAPI.Controllers
             _service = service;
         }
 
-        // 1. GET ALL (Con filtros de Salsa y de Macros)
-        // Ej: api/Salsa?CaloriasMax=10&SoloZero=true
+        // GetAll
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Salsa>>> GetAll(
             [FromQuery] QueryParamsSalsa filtros)
@@ -28,7 +27,7 @@ namespace SuplementosAPI.Controllers
             return Ok(lista);
         }
  
-        // 2. GET BY ID
+        // GetById
         [HttpGet("{id}")]
         public async Task<ActionResult<Salsa>> GetById([FromRoute] int id)
         {
@@ -42,7 +41,7 @@ namespace SuplementosAPI.Controllers
             return Ok(salsa);
         }
 
-        // 3. CREATE (POST)
+        // Post
         [HttpPost]
         public async Task<ActionResult<Salsa>> Create([FromBody] SalsaCreateDto dto)
         {
@@ -53,7 +52,6 @@ namespace SuplementosAPI.Controllers
             }
             catch (ArgumentException ex)
             {
-                // Captura errores de validación (ej: precio negativo, macros mal...)
                 return BadRequest(ex.Message);
             }
             catch (Exception ex)
@@ -62,7 +60,7 @@ namespace SuplementosAPI.Controllers
             }
         }
 
-        // 4. DELETE
+        // Delete
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
