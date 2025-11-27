@@ -100,7 +100,7 @@ namespace SuplementosAPI.Repositories
                 var queryBuilder = new StringBuilder("SELECT * FROM Creatina WHERE 1=1");
                 var cmd = new SqlCommand();
 
-                // --- FILTROS BASE (ProductoBase) ---
+                // FILTROS BASE (ProductoBase)
                 if (!string.IsNullOrWhiteSpace(filtros.BuscarNombre))
                 {
                     queryBuilder.Append(" AND Nombre LIKE @Nombre");
