@@ -1,3 +1,5 @@
+//esta clase
+
 namespace SuplementosAPI.QueryParams
 {
     public class QueryParamsBase

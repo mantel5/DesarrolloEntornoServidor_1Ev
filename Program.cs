@@ -14,6 +14,9 @@ builder.Services.AddScoped<ITortitasRepository, TortitasRepository>();
 builder.Services.AddScoped<ITortitasService, TortitasService>();
 builder.Services.AddScoped<IBebidaRepository, BebidaRepository>();
 builder.Services.AddScoped<IBebidaService, BebidaService>();
+builder.Services.AddScoped<IPreEntrenoRepository, PreEntrenoReposirory>();
+builder.Services.AddScoped<IPreEntrenoService, PreEntrenoService>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
