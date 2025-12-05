@@ -1,0 +1,250 @@
+
+# -----------------------------------------------------------
+# SECCIÓN: Creatina
+# -----------------------------------------------------------
+
+{
+  "nombre": "Creatina Pro Series",
+  "precio": 32.50,
+  "stock": 100,
+  "descripcion": "Creatina de grado farmacéutico para atletas de élite.",
+  "imagen": "url_creatina_pro.jpg",
+  "categoria": "Rendimiento",
+  "pesoKg": 0.5,
+  "formato": "Polvo",
+  "tipo": "Creapure",
+  "sabor": "Neutro",
+  "selloCreapure": true,
+  "esMicronizada": true,
+  "dosisDiariaGr": 5
+}
+
+{
+  "nombre": "Creatina HCL Capsulas",
+  "precio": 26.95,
+  "stock": 30,
+  "descripcion": "Creatina clorhidrato en cápsulas. No retiene líquidos y no requiere fase de carga.",
+  "categoria": "Rendimiento",
+  "pesoKg": 0.2,
+  "imagen": "url_creatina_hcl.jpg",
+  
+  "formato": "Cápsulas",
+  "tipo": "HCL",
+  "sabor": "Neutro",
+  "selloCreapure": false,
+  "esMicronizada": false,
+  "dosisDiariaGr": 3
+}
+
+# -----------------------------------------------------------
+# SECCIÓN: SALSA
+# -----------------------------------------------------------
+
+{
+  "nombre": "Salsa BBQ Zero",
+  "precio": 4.90,
+  "stock": 50,
+  "descripcion": "Salsa barbacoa sin calorías.",
+  "imagen": "url_bbq.jpg",
+  "calorias": 5,
+  "proteinas": 0,
+  "carbohidratos": 1,
+  "grasas": 0,
+  "sabor": "Barbacoa",
+  "esPicante": false,
+  "esZero": true
+}
+
+{
+  "nombre": "Salsa Sweet Chili Zero",
+  "precio": 5.20,
+  "stock": 120,
+  "descripcion": "Salsa estilo tailandés con un toque dulce y picante. Sin azúcares añadidos.",
+  "imagen": "url_sweet_chili.jpg",
+  
+  "calorias": 14,
+  "proteinas": 0.5,
+  "carbohidratos": 3.2,
+  "grasas": 0.1,
+  
+  "sabor": "Chili Dulce",
+  "esPicante": true,
+  "esZero": true
+}
+
+
+# ==========================================
+# 1. PROTEÍNAS
+# ==========================================
+
+{
+  "nombre": "IsoGold Hydrolyzed 2kg",
+  "precio": 64.90,
+  "stock": 50,
+  "descripcion": "Proteína hidrolizada de absorción ultrarrápida. Perfecta para post-entreno.",
+  "categoria": "Recuperación",
+  "pesoKg": 2.0,
+  "imagen": "url_iso_gold.jpg",
+  "sabor": "Chocolate Belga",
+  "tipo": "Isolate",
+  "porcentaje": 92,
+  "esSinLactosa": true
+}
+
+{
+  "nombre": "Vegan Pea Protein 1kg",
+  "precio": 24.90,
+  "stock": 200,
+  "descripcion": "Proteína de guisante con perfil completo de aminoácidos.",
+  "categoria": "Vegano",
+  "pesoKg": 1.0,
+  "imagen": "url_vegan_pea.jpg",
+  "sabor": "Vainilla Natural",
+  "tipo": "Vegana",
+  "porcentaje": 75,
+  "esSinLactosa": true
+}
+
+# ==========================================
+# 2. OMEGA 3
+# ==========================================
+
+{
+  "nombre": "Ultra Omega 3 TG",
+  "precio": 35.00,
+  "stock": 80,
+  "descripcion": "Aceite de pescado en forma de triglicéridos. Máxima absorción.",
+  "categoria": "Salud General",
+  "pesoKg": 0.2,
+  "imagen": "url_omega_ifos.jpg",
+  "formato": "Perlas",
+  "origen": "Pescado Azul",
+  "mgEPA": 500,
+  "mgDHA": 250,
+  "certificadoIFOS": true
+}
+
+{
+  "nombre": "Algae Omega Vegan",
+  "precio": 29.90,
+  "stock": 40,
+  "descripcion": "Omega 3 obtenido directamente de microalgas. 100% vegetal.",
+  "categoria": "Vegano",
+  "pesoKg": 0.15,
+  "imagen": "url_algae_omega.jpg",
+  "formato": "Cápsulas Vegetales",
+  "origen": "Algas",
+  "mgEPA": 150,
+  "mgDHA": 300,
+  "certificadoIFOS": false
+}
+
+# ==========================================
+# 3. TORTITAS (Familia Comida)
+# ==========================================
+
+{
+  "nombre": "Harina de Avena Micronizada",
+  "precio": 6.90,
+  "stock": 100,
+  "descripcion": "Avena molida muy fina, perfecta para batidos o tortitas.",
+  "imagen": "url_avena_donut.jpg",
+  "calorias": 360,
+  "proteinas": 12,
+  "carbohidratos": 60,
+  "grasas": 6,
+  "sabor": "Donut Glaseado",
+  "tipo": "Harina",
+  "pesoGr": 1000,
+  "esSinGluten": false
+}
+
+
+{
+  "nombre": "Protein Pancake Mix",
+  "precio": 14.90,
+  "stock": 30,
+  "descripcion": "Mezcla lista para cocinar. Solo añade agua.",
+  "imagen": "url_pancake_mix.jpg",
+  "calorias": 380,
+  "proteinas": 35,
+  "carbohidratos": 40,
+  "grasas": 8,
+  "sabor": "Sirope de Arce",
+  "tipo": "Preparado",
+  "pesoGr": 500,
+  "esSinGluten": true
+}
+
+# ==========================================
+# 4. BEBIDAS (Familia Comida)
+# ==========================================
+
+
+{
+  "nombre": "Energy Drink Zero",
+  "precio": 1.50,
+  "stock": 500,
+  "descripcion": "Bebida energética con cafeína y taurina. Sin azúcar.",
+  "imagen": "url_energy_drink.jpg",
+  "calorias": 3,
+  "proteinas": 0,
+  "carbohidratos": 0,
+  "grasas": 0,
+  "sabor": "Lima Limón",
+  "mililitros": 500,
+  "tieneGluten": false,
+  "tieneGas": true
+}
+
+{
+  "nombre": "Protein Shake RTD",
+  "precio": 2.95,
+  "stock": 60,
+  "descripcion": "Batido de chocolate listo para beber. Cremoso.",
+  "imagen": "url_shake_choco.jpg",
+  "calorias": 180,
+  "proteinas": 25,
+  "carbohidratos": 12,
+  "grasas": 2,
+  "sabor": "Chocolate",
+  "mililitros": 330,
+  "tieneGluten": false,
+  "tieneGas": false
+}
+
+# -----------------------------------------------------------
+# SECCIÓN: PreEntreno
+# -----------------------------------------------------------
+
+{
+  "nombre": "Total War Pre-Workout",
+  "precio": 39.90,
+  "stock": 150,
+  "descripcion": "Pre-entreno completo con alta dosis de cafeína y beta-alanina para entrenamientos intensos.",
+  "categoria": "Energía",
+  "pesoKg": 0.44,
+  "imagen": "url_total_war.jpg",
+  
+  "formato": "Polvo",
+  "tipo": "Estimulante",
+  "sabor": "Gomitas Ácidas",
+  "mgCafeina": 320,
+  "tieneBetaAlanina": true
+}
+
+{
+  "nombre": "Moonwalk Pump Zero",
+  "precio": 31.50,
+  "stock": 45,
+  "descripcion": "Fórmula de bombeo nocturno. Maximiza el flujo sanguíneo sin afectar al sueño.",
+  "categoria": "Rendimiento",
+  "pesoKg": 0.35,
+  "imagen": "url_moonwalk.jpg",
+  
+  "formato": "Polvo",
+  "tipo": "Pump",
+  "sabor": "Uva Galáctica",
+  "mgCafeina": 0,
+  "tieneBetaAlanina": false
+}
