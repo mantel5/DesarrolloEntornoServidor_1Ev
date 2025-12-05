@@ -6,11 +6,11 @@ using SuplementosAPI.QueryParams;
 
 namespace SuplementosAPI.Repositories
 {
-    public class PreEntrenoReposirory : IPreEntrenoRepository
+    public class PreEntrenoRepository : IPreEntrenoRepository
     {
         private readonly string _connectionString;
 
-        public PreEntrenoReposirory(IConfiguration configuration)
+        public PreEntrenoRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("SuplementosDB") 
                 ?? throw new Exception("Falta conexión en appsettings");

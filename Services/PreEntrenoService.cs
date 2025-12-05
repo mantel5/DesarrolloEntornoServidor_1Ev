@@ -20,7 +20,7 @@ namespace SuplementosAPI.Services
             var nuevaPreEntreno = new PreEntreno(
                 dto.Nombre, dto.Precio, dto.Stock, dto.Descripcion, dto.Imagen,
                 dto.Categoria, dto.PesoKg,
-                dto.Sabor, dto.Tipo, dto.Formato, dto.MgCafeina, dto.TieneBetaAlanina
+                dto.Formato, dto.Tipo, dto.Sabor, dto.MgCafeina, dto.TieneBetaAlanina
             );
 
             await _repository.AddAsync(nuevaPreEntreno);
