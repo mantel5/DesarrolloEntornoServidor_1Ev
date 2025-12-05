@@ -16,6 +16,8 @@ builder.Services.AddScoped<IBebidaRepository, BebidaRepository>();
 builder.Services.AddScoped<IBebidaService, BebidaService>();
 builder.Services.AddScoped<IPreEntrenoRepository, PreEntrenoRepository>();
 builder.Services.AddScoped<IPreEntrenoService, PreEntrenoService>();
+builder.Services.AddScoped<IOmega3Repository, Omega3Repository>();
+builder.Services.AddScoped<IOmega3Service, Omega3Service>();
 
 
 builder.Services.AddControllers();
