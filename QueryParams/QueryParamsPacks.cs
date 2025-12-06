@@ -1,13 +1,21 @@
-using SuplementosAPI.Models;
-
 namespace SuplementosAPI.QueryParams
 {
-    public class QueryParamsPacks : QueryParamsSuplemento
+    public class QueryParamsPacks
     {
-        public Proteina Proteina  { get; set; }
-        public PreEntreno PreEntreno { get; set; }
-        public PreEntreno Creatina { get; set; }
-        public PreEntreno Bebida { get; set; }
-        public double PrecioTotal { get; set; }
+        // Paginación
+        public int Pagina { get; set; } = 1;
+        public int ElementosPorPagina { get; set; } = 10;
+
+        // Filtros Base
+        public string? BuscarNombre { get; set; }
+        public decimal? PrecioMin { get; set; }
+        public decimal? PrecioMax { get; set; }
+
+        // Filtros Suplemento
+        public double? PesoMin { get; set; }
+        public double? PesoMax { get; set; }
+
+        // Ordenación
+        public string? OrdenarPor { get; set; } 
     }
 }

@@ -124,3 +124,23 @@ CREATE TABLE Bebida (
     TieneGluten BIT NOT NULL,
     TieneGas BIT NOT NULL
 );
+
+IF OBJECT_ID('Packs', 'U') IS NOT NULL DROP TABLE Packs;
+CREATE TABLE Packs (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL,
+    Descripcion NVARCHAR(MAX) NOT NULL,
+    Imagen NVARCHAR(MAX) NOT NULL,
+    Precio DECIMAL(10,2) NOT NULL,
+    Stock INT NOT NULL,
+    Categoria NVARCHAR(50) NOT NULL,
+    PesoKg FLOAT NOT NULL,
+    ProteinaId INT NOT NULL,
+    PreEntrenoId INT NOT NULL,
+    CreatinaId INT NOT NULL,
+    BebidaId INT NOT NULL,
+    FOREIGN KEY (ProteinaId) REFERENCES Proteina(Id),
+    FOREIGN KEY (PreEntrenoId) REFERENCES PreEntreno(Id),
+    FOREIGN KEY (CreatinaId) REFERENCES Creatina(Id),
+    FOREIGN KEY (BebidaId) REFERENCES Bebida(Id)
+);
