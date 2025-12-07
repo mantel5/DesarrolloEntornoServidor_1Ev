@@ -45,7 +45,7 @@ namespace SuplementosAPI.Controllers
         {
             try
             {
-c.
+
                 var nuevo = await _service.CreateAsync(dto);
 
                 return CreatedAtAction(nameof(GetById), new { id = nuevo.Id }, nuevo);

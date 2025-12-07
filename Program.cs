@@ -22,6 +22,8 @@ builder.Services.AddScoped<IPacksRepository, PacksRepository>();
 builder.Services.AddScoped<IPacksService, PacksService>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
+builder.Services.AddScoped<IPedidoService, PedidoService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
