@@ -10,3 +10,5 @@ docker pull marcoslahuertasalas/suplementos-api:v1  => esto es para bajarmelo cu
 docker push marcoslahuertasalas/suplementos-api:v1  => con esto subo la nueva version
 docker-compose down  => apaga y borra los contenedores viejos
 docker-compose up -d  => descargala imagen nueva y arranca todo
+
+http://localhost:8310/swagger 

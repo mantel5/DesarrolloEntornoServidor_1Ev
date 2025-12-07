@@ -155,3 +155,26 @@ CREATE TABLE Usuario (
     Direccion NVARCHAR(255) NULL,
     Telefono NVARCHAR(20) NULL
 );
+
+IF OBJECT_ID('Pedido', 'U') IS NOT NULL DROP TABLE Pedido;
+CREATE TABLE Pedido (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    UsuarioId INT NOT NULL,          
+    Fecha DATETIME NOT NULL,        
+    Total DECIMAL(10, 2) NOT NULL,  
+    Estado NVARCHAR(50) NOT NULL DEFAULT 'Confirmado', 
+    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id)
+);
+
+IF OBJECT_ID('LineaPedido', 'U') IS NOT NULL DROP TABLE LineaPedido;
+CREATE TABLE LineaPedido (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    PedidoId INT NOT NULL,          
+    ProductoNombre NVARCHAR(100) NOT NULL,
+    Cantidad INT NOT NULL,
+    PrecioUnitario DECIMAL(10, 2) NOT NULL,
+    Subtotal DECIMAL(10, 2) NOT NULL,
+    ProductoIdOriginal INT NOT NULL,  
+    TipoProductoOriginal NVARCHAR(50) NOT NULL,
+    FOREIGN KEY (PedidoId) REFERENCES Pedido(Id) ON DELETE CASCADE
+);
