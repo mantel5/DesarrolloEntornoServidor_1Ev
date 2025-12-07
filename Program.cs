@@ -20,6 +20,8 @@ builder.Services.AddScoped<IOmega3Repository, Omega3Repository>();
 builder.Services.AddScoped<IOmega3Service, Omega3Service>();
 builder.Services.AddScoped<IPacksRepository, PacksRepository>();
 builder.Services.AddScoped<IPacksService, PacksService>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
