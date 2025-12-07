@@ -5,7 +5,7 @@ dotnet add package Microsoft.Data.SqlClient
 
 
 docker login
-docker build -t marcoslahuertasalas/suplementos-api:v1 .  => esto si ahgo cambios
+docker build -t marcoslahuertasalas/suplementos-api:v1 .  => esto si hago cambios
 docker pull marcoslahuertasalas/suplementos-api:v1  => esto es para bajarmelo cuando no haga cambios
 docker push marcoslahuertasalas/suplementos-api:v1  => con esto subo la nueva version
 docker-compose down  => apaga y borra los contenedores viejos
