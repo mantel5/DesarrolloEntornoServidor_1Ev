@@ -144,3 +144,14 @@ CREATE TABLE Packs (
     FOREIGN KEY (CreatinaId) REFERENCES Creatina(Id),
     FOREIGN KEY (BebidaId) REFERENCES Bebida(Id)
 );
+
+IF OBJECT_ID('Usuario', 'U') IS NOT NULL DROP TABLE Usuario;
+CREATE TABLE Usuario (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(100) NOT NULL UNIQUE, 
+    Password NVARCHAR(255) NOT NULL,
+    Rol NVARCHAR(20) NOT NULL DEFAULT 'Cliente',
+    Direccion NVARCHAR(255) NULL,
+    Telefono NVARCHAR(20) NULL
+);
