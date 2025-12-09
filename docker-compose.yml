@@ -1,38 +1,26 @@
-version: '3.4'
+version: '3.8'
 
 services:
-  # -------------------------------------------------------
-  # SERVICIO 1: BASE DE DATOS (SQL SERVER)
-  # Puerto invertido: 0138
-  # -------------------------------------------------------
   bbdd-suplementos:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: sql_server_suplementos
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: bbdd-suplementos
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=yourStrong(!)Password
     ports:
-      # Puerto externo (Tu PC) : Puerto interno (Contenedor)
-      - "0138:1433"
+      - "28510:1433"
     networks:
       - mi-red-suplementos
+    volumes:
+      - sql_data:/var/opt/mssql
 
-  # -------------------------------------------------------
-  # SERVICIO 2: TU API (.NET 8)
-  # Puerto alumno: 8310
-  # -------------------------------------------------------
-  api-suplementos:
-    # Tu imagen de Docker Hub
+  suplementos-api:
     image: marcoslahuertasalas/suplementos-api:v1
-    container_name: api_suplementos_container
+    container_name: suplementos-api
     ports:
-      # Puerto externo (Tu PC) : Puerto interno (Contenedor)
-      - "8310:8080"
+      - "2841:8080"
     environment:
-      # 1. ¡CLAVE! Forzamos modo Desarrollo para ver Swagger
       - ASPNETCORE_ENVIRONMENT=Development
-      
-      # 2. Cadena de Conexión interna
       - ConnectionStrings__SuplementosDB=Server=bbdd-suplementos,1433;Database=SuplementosDB;User Id=sa;Password=yourStrong(!)Password;TrustServerCertificate=True;
     depends_on:
       - bbdd-suplementos
@@ -42,3 +30,6 @@ services:
 networks:
   mi-red-suplementos:
     driver: bridge
+
+volumes:
+  sql_data:
