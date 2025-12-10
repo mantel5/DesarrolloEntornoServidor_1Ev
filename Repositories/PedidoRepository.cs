@@ -33,7 +33,7 @@ namespace SuplementosAPI.Repositories
                         string queryPedido = @"
                             INSERT INTO Pedido (UsuarioId, Fecha, Total, Estado) 
                             VALUES (@UsuarioId, @Fecha, @Total, @Estado);
-                            SELECT SCOPE_IDENTITY();";
+                            SELECT SCOPE_IDENTITY();"; 
 
                         int nuevoPedidoId;
 

@@ -63,7 +63,7 @@ namespace SuplementosAPI.Repositories
 
                 sb.Append(" ORDER BY Fecha DESC");
 
-                using (var cmd = new SqlCommand(sb.ToString(), connection))
+                using (var cmd = new SqlCommand(sb.ToString(), connection)) 
                 {
                     if (queryParams.ProductoId.HasValue)
                         cmd.Parameters.AddWithValue("@ProductoId", queryParams.ProductoId);
