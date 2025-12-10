@@ -24,6 +24,8 @@ builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
+builder.Services.AddScoped<IOpinionRepository, OpinionRepository>();
+builder.Services.AddScoped<IOpinionService, OpinionService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

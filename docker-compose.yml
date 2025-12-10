@@ -18,9 +18,10 @@ services:
     image: marcoslahuertasalas/suplementos-api:v1
     container_name: suplementos-api
     ports:
-      - "2841:8080"
+      - "28431:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
       - ConnectionStrings__SuplementosDB=Server=bbdd-suplementos,1433;Database=SuplementosDB;User Id=sa;Password=yourStrong(!)Password;TrustServerCertificate=True;
     depends_on:
       - bbdd-suplementos

@@ -12,3 +12,6 @@ docker-compose down  => apaga y borra los contenedores viejos
 docker-compose up -d  => descargala imagen nueva y arranca todo
 
 http://localhost:8310/swagger 
+
+
+HOLA PROFE PARA ENTRAR A SWAGGER =>  http://localhost:28431/swagger

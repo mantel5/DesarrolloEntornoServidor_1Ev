@@ -178,3 +178,15 @@ CREATE TABLE LineaPedido (
     TipoProductoOriginal NVARCHAR(50) NOT NULL,
     FOREIGN KEY (PedidoId) REFERENCES Pedido(Id) ON DELETE CASCADE
 );
+
+IF OBJECT_ID('Opinion', 'U') IS NOT NULL DROP TABLE Opinion;
+CREATE TABLE Opinion (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    UsuarioId INT NOT NULL,
+    UsuarioNombre NVARCHAR(100) NOT NULL,
+    ProductoId INT NOT NULL,
+    Texto NVARCHAR(500) NOT NULL,
+    Puntuacion INT NOT NULL,
+    Fecha DATETIME NOT NULL,
+    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
+);
