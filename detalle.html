@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Producto</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; padding: 20px; max-width: 800px; margin: 0 auto; }
+        
+        /* Sección Producto */
+        .producto-detalle { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; gap: 20px; }
+        .img-box img { max-width: 300px; border-radius: 10px; }
+        .info-box { flex-grow: 1; }
+        .precio { color: #e91e63; font-size: 2em; font-weight: bold; margin: 10px 0; }
+        .etiqueta { background: #eee; padding: 5px 10px; border-radius: 15px; font-size: 0.8em; color: #555; }
+
+        /* Sección Opiniones */
+        .seccion-opiniones { margin-top: 30px; }
+        .filtro-box { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        
+        .opinion-card { background: white; border-left: 5px solid #2196F3; padding: 15px; margin-bottom: 15px; border-radius: 5px; }
+        .estrellas { color: #FFC107; font-size: 1.2em; }
+        .fecha { color: #999; font-size: 0.8em; float: right; }
+        
+        select { padding: 8px; border-radius: 5px; border: 1px solid #ddd; }
+        .btn-volver { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #333; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <a href="tienda.html" class="btn-volver">⬅ Volver al Catálogo</a>
+
+    <div id="producto-info" class="producto-detalle">
+        <p>Cargando producto...</p>
+    </div>
+
+    <div class="seccion-opiniones">
+        <h2>⭐ Opiniones de Clientes</h2>
+        
+        <div class="filtro-box">
+            <label>Filtrar por puntuación:</label>
+            <select id="filtroEstrellas" onchange="cargarOpiniones()">
+                <option value="">Todas las opiniones</option>
+                <option value="5">Solo 5 Estrellas</option>
+                <option value="4">Más de 4 Estrellas</option>
+                <option value="3">Más de 3 Estrellas</option>
+            </select>
+        </div>
+
+        <div id="lista-opiniones"></div>
+    </div>
+
+    <script>
+        // LEER EL ID DE LA URL (ej: ?id=1)
+        const params = new URLSearchParams(window.location.search);
+        const productoId = params.get('id');
+        const API_URL = 'http://localhost:28431/api';
+
+        if (!productoId) {
+            document.body.innerHTML = "<h1>❌ Error: No se ha seleccionado ningún producto.</h1>";
+        } else {
+            cargarProducto();
+            cargarOpiniones();
+        }
+
+        // 1. FUNCIÓN PARA CARGAR INFO DEL PRODUCTO
+        async function cargarProducto() {
+            try {
+                const res = await fetch(`${API_URL}/Creatina/${productoId}`);
+                if (!res.ok) throw new Error("Producto no encontrado");
+                const p = await res.json();
+
+                document.getElementById('producto-info').innerHTML = `
+                    <div class="img-box">
+                        <img src="${p.imagen}" onerror="this.src='https://via.placeholder.com/300'">
+                    </div>
+                    <div class="info-box">
+                        <h1>${p.nombre}</h1>
+                        <span class="etiqueta">${p.categoria}</span>
+                        <span class="etiqueta">${p.sabor}</span>
+                        <p>${p.descripcion}</p>
+                        <p><strong>Formato:</strong> ${p.formato} (${p.pesoKg}kg)</p>
+                        <div class="precio">${p.precio} €</div>
+                        <button style="background:#4CAF50; color:white; border:none; padding:10px 20px; font-size:1.2em; border-radius:5px; cursor:pointer">Añadir al Carrito 🛒</button>
+                    </div>
+                `;
+            } catch (err) {
+                document.getElementById('producto-info').innerHTML = "Error al cargar producto.";
+            }
+        }
+
+        // 2. FUNCIÓN PARA CARGAR (Y FILTRAR) OPINIONES
+        async function cargarOpiniones() {
+            const contenedor = document.getElementById('lista-opiniones');
+            const filtroMin = document.getElementById('filtroEstrellas').value;
+            
+            contenedor.innerHTML = "<p>Cargando opiniones...</p>";
+
+            try {
+                // CONSTRUIMOS LA URL CON FILTROS
+                // Usamos tu OpinionQueryParams: ?productoId=X & puntuacionMin=Y
+                let url = `${API_URL}/Opinion?productoId=${productoId}`;
+                
+                if (filtroMin) {
+                    url += `&puntuacionMin=${filtroMin}`;
+                }
+
+                const res = await fetch(url);
+                const opiniones = await res.json();
+
+                contenedor.innerHTML = ""; // Limpiar
+
+                if (opiniones.length === 0) {
+                    contenedor.innerHTML = "<p>No hay opiniones con este filtro. ¡Sé el primero!</p>";
+                    return;
+                }
+
+                opiniones.forEach(op => {
+                    const estrellas = "★".repeat(op.puntuacion) + "☆".repeat(5 - op.puntuacion);
+                    
+                    const html = `
+                        <div class="opinion-card">
+                            <div class="estrellas">${estrellas}</div>
+                            <p><strong>Usuario #${op.usuarioId}</strong> dice:</p>
+                            <p>"${op.texto}"</p>
+                            <span class="fecha">${new Date(op.fecha).toLocaleDateString()}</span>
+                            <div style="clear:both"></div>
+                        </div>
+                    `;
+                    contenedor.innerHTML += html;
+                });
+
+            } catch (err) {
+                console.error(err);
+                contenedor.innerHTML = "<p>Error al cargar opiniones.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
