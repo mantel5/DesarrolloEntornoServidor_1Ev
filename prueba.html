@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Test de CORS</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .exito { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>🧪 Prueba de Conexión (CORS)</h2>
+    <button onclick="probarConexion()">👉 Pulsar para probar API</button>
+    <div id="resultado" style="margin-top: 20px;">Esperando...</div>
+
+    <script>
+        async function probarConexion() {
+            const div = document.getElementById('resultado');
+            div.innerHTML = "Intentando conectar...";
+
+            try {
+                // Intentamos pedir las Creatinas a tu puerto 28431
+                const respuesta = await fetch('http://localhost:28431/api/Creatina');
+                
+                if (respuesta.ok) {
+                    const datos = await respuesta.json();
+                    console.log(datos); // Muestra los datos en la consola (F12)
+                    div.innerHTML = `<p class="exito">✅ ¡ÉXITO! CORS está funcionando.<br>He recibido ${datos.length} creatinas.</p>`;
+                } else {
+                    div.innerHTML = `<p class="error">❌ La API respondió, pero con error: ${respuesta.status}</p>`;
+                }
+            } catch (error) {
+                console.error("Error de conexión:", error);
+                div.innerHTML = `<p class="error">⛔ ERROR DE CORS (o API apagada).<br>Mira la consola (F12) para ver el mensaje rojo.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suplementos VIP</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; text-align: center; margin: 0; padding: 20px; }
+        h1 { color: #333; margin-bottom: 30px; }
+        
+        /* Contenedor de tarjetas */
+        .catalogo { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        /* Estilo de cada tarjeta */
+        .tarjeta { 
+            background: white; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .tarjeta:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+
+        /* Imagen */
+        .img-container { height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #fff; }
+        img { max-height: 80%; max-width: 80%; object-fit: contain; }
+
+        /* Contenido */
+        .info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        h3 { margin: 0 0 10px 0; font-size: 1.2rem; color: #2c3e50; }
+        p.desc { font-size: 0.9rem; color: #666; line-height: 1.4; flex-grow: 1; }
+        
+        .datos-extra { display: flex; justify-content: space-between; margin: 15px 0; font-size: 0.85rem; color: #888; background: #f9f9f9; padding: 5px; border-radius: 5px; }
+
+        .precio { color: #e91e63; font-weight: bold; font-size: 1.5em; margin: 10px 0; }
+        
+        button { 
+            background: #2196F3; color: white; border: none; padding: 12px; 
+            border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%;
+            transition: background 0.2s;
+        }
+        button:hover { background: #1976D2; }
+        
+        /* Loading */
+        #loading { font-size: 1.5rem; color: #666; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Catálogo de Creatinas</h1>
+    
+    <div id="loading">Cargando productos... ⏳</div>
+    <div id="contenedor" class="catalogo"></div>
+
+    <script>
+        // URL DE TU API (Puerto 28431)
+        const API_URL = 'http://localhost:28431/api/Creatina';
+
+        async function cargarTienda() {
+            const contenedor = document.getElementById('contenedor');
+            const loading = document.getElementById('loading');
+
+            try {
+                const respuesta = await fetch(API_URL);
+                
+                if (!respuesta.ok) throw new Error("Error al conectar con la API");
+
+                const productos = await respuesta.json();
+                loading.style.display = 'none'; // Quitar mensaje de carga
+
+                productos.forEach(p => {
+                    // Generamos el HTML de cada tarjeta
+                    const tarjeta = `
+                        <div class="tarjeta">
+                            <div class="img-container">
+                                <img src="${p.imagen}" alt="${p.nombre}" onerror="this.src='https://via.placeholder.com/150?text=Sin+Imagen'">
+                            </div>
+                            <div class="info">
+                                <h3>${p.nombre}</h3>
+                                <div class="datos-extra">
+                                    <span>⚖️ ${p.pesoKg}kg</span>
+                                    <span>📂 ${p.formato}</span>
+                                    <span>👅 ${p.sabor}</span>
+                                </div>
+                                <p class="desc">${p.descripcion}</p>
+                                <div class="precio">${p.precio} €</div>
+                                <button onclick="alert('Has añadido: ${p.nombre}')">🛒 Añadir al Carrito</button>
+                            </div>
+                        </div>
+                    `;
+                    contenedor.innerHTML += tarjeta;
+                });
+
+            } catch (error) {
+                console.error(error);
+                loading.innerHTML = '❌ Error: No se pudo conectar con la API (Revisa Docker)';
+                loading.style.color = 'red';
+            }
+        }
+
+        // Cargar automáticamente al abrir la página
+        cargarTienda();
+    </script>
+
+</body>
+</html>
