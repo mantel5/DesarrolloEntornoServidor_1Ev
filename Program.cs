@@ -3,6 +3,17 @@ using SuplementosAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 1. CONFIGURACIÓN DEL SERVICIO CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("NuevaPolitica", app =>
+    {
+        app.AllowAnyOrigin()
+           .AllowAnyHeader()
+           .AllowAnyMethod();
+    });
+});
+
 
 builder.Services.AddScoped<ICreatinaRepository, CreatinaRepository>();
 builder.Services.AddScoped<ICreatinaService, CreatinaService>();
@@ -40,6 +51,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("NuevaPolitica");
 
 app.UseAuthorization();
 
