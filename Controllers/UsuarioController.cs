@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using SuplementosAPI.Dtos;
 using SuplementosAPI.QueryParams;
 using SuplementosAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SuplementosAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _service;
