@@ -1,4 +1,4 @@
-
+using Microsoft.OpenApi.Models; // <--- Necesario para configurar Swagger
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -13,13 +13,12 @@ builder.Services.AddCors(options =>
     options.AddPolicy("NuevaPolitica", app =>
     {
         app.AllowAnyOrigin()
-           .AllowAnyHeader()
-           .AllowAnyMethod();
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
-// --- 2. CONFIGURACIÓN DE SEGURIDAD JWT (¡NUEVO!) ---
-// Esto lee la configuración de tu appsettings.json y prepara la API para validar tokens
+// --- 2. CONFIGURACIÓN DE SEGURIDAD JWT ---
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -35,7 +34,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// --- 3. INYECCIÓN DE DEPENDENCIAS (Tus Repositorios y Servicios) ---
+// --- 3. INYECCIÓN DE DEPENDENCIAS ---
 builder.Services.AddScoped<ICreatinaRepository, CreatinaRepository>();
 builder.Services.AddScoped<ICreatinaService, CreatinaService>();
 builder.Services.AddScoped<IProteinaRepository, ProteinaRepository>();
@@ -61,11 +60,45 @@ builder.Services.AddScoped<IOpinionService, OpinionService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// --- 4. CONFIGURACIÓN DE SWAGGER CON BOTÓN AUTHORIZE (¡MODIFICADO!) ---
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SuplementosAPI", Version = "v1" });
+
+    // Definimos el esquema de seguridad (Bearer)
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    // Requerimos este esquema en los endpoints
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+            },
+            new List<string>()
+        }
+    });
+});
 
 var app = builder.Build();
 
-// --- 4. PIPELINE DE PETICIONES ---
+// --- 5. PIPELINE DE PETICIONES ---
 
 if (app.Environment.IsDevelopment())
 {
