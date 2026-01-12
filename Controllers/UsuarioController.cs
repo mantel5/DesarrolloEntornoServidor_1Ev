@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using SuplementosAPI.Dtos;
 using SuplementosAPI.QueryParams;
 using SuplementosAPI.Services;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization; //iei
 
 namespace SuplementosAPI.Controllers
 {
