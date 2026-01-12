@@ -1,9 +1,13 @@
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using SuplementosAPI.Repositories;
 using SuplementosAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. CONFIGURACIÓN DEL SERVICIO CORS
+// --- 1. CONFIGURACIÓN DEL SERVICIO CORS ---
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("NuevaPolitica", app =>
@@ -14,7 +18,24 @@ builder.Services.AddCors(options =>
     });
 });
 
+// --- 2. CONFIGURACIÓN DE SEGURIDAD JWT (¡NUEVO!) ---
+// Esto lee la configuración de tu appsettings.json y prepara la API para validar tokens
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
 
+// --- 3. INYECCIÓN DE DEPENDENCIAS (Tus Repositorios y Servicios) ---
 builder.Services.AddScoped<ICreatinaRepository, CreatinaRepository>();
 builder.Services.AddScoped<ICreatinaService, CreatinaService>();
 builder.Services.AddScoped<IProteinaRepository, ProteinaRepository>();
@@ -44,6 +65,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// --- 4. PIPELINE DE PETICIONES ---
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -54,7 +77,9 @@ app.UseHttpsRedirection();
 
 app.UseCors("NuevaPolitica");
 
-app.UseAuthorization();
+// ¡IMPORTANTE! El orden aquí es sagrado:
+app.UseAuthentication(); // 1. ¿Quién eres? (Verifica el Token JWT)
+app.UseAuthorization();  // 2. ¿Tienes permiso? (Verifica el Rol)
 
 app.MapControllers();
 
