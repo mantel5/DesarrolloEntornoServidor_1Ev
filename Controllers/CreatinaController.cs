@@ -3,6 +3,7 @@ using SuplementosAPI.Dtos;
 using SuplementosAPI.Models;
 using SuplementosAPI.QueryParams;
 using SuplementosAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SuplementosAPI.Controllers
 {
@@ -42,6 +43,7 @@ namespace SuplementosAPI.Controllers
         }
 
         // Post
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Creatina>> Create([FromBody] CreatinaCreateDto dto)
         {
@@ -63,6 +65,7 @@ namespace SuplementosAPI.Controllers
         }
 
         // Delete
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
