@@ -1,15 +1,15 @@
-namespace SuplementosAPI.Dtos
+namespace SuplementosAPI.DTOs
 {
-    public class PedidoCreateDto
+    public class PedidoDto
     {
-        public int UsuarioId { get; set; } 
-        public List<ItemCarritoDto> Productos { get; set; } = new List<ItemCarritoDto>();
-    }
-
-    public class ItemCarritoDto
-    {
-        public int ProductoId { get; set; }      
-        public string TipoProducto { get; set; } 
-        public int Cantidad { get; set; }        
+        public int Id { get; set; }
+        public DateTime Fecha { get; set; }
+        public decimal Total { get; set; }
+        
+        // El ID del usuario que compra
+        public int UsuarioId { get; set; }
+        
+        // Aquí podrías poner una lista de líneas de pedido si la tienes
+        // public List<LineaPedidoDto> Lineas { get; set; } 
     }
 }

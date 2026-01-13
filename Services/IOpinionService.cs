@@ -1,13 +1,17 @@
 using SuplementosAPI.Dtos;
-using SuplementosAPI.Models;
+using SuplementosAPI.DTOs;
 using SuplementosAPI.QueryParams;
 
 namespace SuplementosAPI.Services
 {
     public interface IOpinionService
     {
-        Task<Opinion> CreateAsync(OpinionCreateDto dto);
-        Task<List<Opinion>> GetAllAsync(OpinionQueryParams queryParams);
+        // Fíjate que devuelve OpinionDto
+        Task<IEnumerable<OpinionDto>> GetAllAsync(OpinionQueryParams? queryParams = null);
+        
+        // Fíjate que recibe OpinionCreateDto
+        Task AddAsync(OpinionCreateDto dto);
+        
         Task DeleteAsync(int id);
     }
 }

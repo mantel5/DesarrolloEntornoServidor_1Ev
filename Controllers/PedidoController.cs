@@ -1,12 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SuplementosAPI.Dtos;
-using SuplementosAPI.Models;
+using SuplementosAPI.DTOs;
 using SuplementosAPI.Services;
 
 namespace SuplementosAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] // <--- Candado General (Nadie entra sin token)
     public class PedidoController : ControllerBase
     {
         private readonly IPedidoService _service;
@@ -16,39 +17,20 @@ namespace SuplementosAPI.Controllers
             _service = service;
         }
 
+        // GET: Solo Admin ve todo el historial
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<IEnumerable<PedidoDto>>> GetAll()
+        {
+            return Ok(await _service.GetAllAsync());
+        }
+
+        // POST: Cualquiera logueado puede comprar
         [HttpPost]
-        public async Task<ActionResult<Pedido>> Create([FromBody] PedidoCreateDto dto)
+        public async Task<ActionResult> Create(PedidoDto pedidoDto)
         {
-            try
-            {
-                var pedido = await _service.CreateAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id = pedido.Id }, pedido);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
- 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Pedido>> GetById(int id)
-        {
-            var pedido = await _service.GetByIdAsync(id);
-
-            if (pedido == null)
-            {
-                return NotFound($"No se encontró el pedido con ID {id}");
-            }
-
-            return Ok(pedido);
-        }
-
-        [HttpGet("usuario/{usuarioId}")]
-        public async Task<ActionResult<IEnumerable<Pedido>>> GetByUsuario(int usuarioId)
-        {
-            var pedidos = await _service.GetByUsuarioIdAsync(usuarioId);
-            return Ok(pedidos);
+            await _service.AddAsync(pedidoDto);
+            return Ok(new { message = "Pedido realizado con éxito" });
         }
     }
 }

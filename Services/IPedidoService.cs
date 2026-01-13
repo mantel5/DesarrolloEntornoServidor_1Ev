@@ -1,12 +1,10 @@
-using SuplementosAPI.Dtos;
-using SuplementosAPI.Models;
+using SuplementosAPI.DTOs;
 
 namespace SuplementosAPI.Services
 {
     public interface IPedidoService
     {
-        Task<Pedido> CreateAsync(PedidoCreateDto dto);
-        Task<Pedido?> GetByIdAsync(int id);
-        Task<List<Pedido>> GetByUsuarioIdAsync(int usuarioId);
+        Task<IEnumerable<PedidoDto>> GetAllAsync(); // <--- OJO: Devuelve DTOs, no Modelos
+        Task AddAsync(PedidoDto pedidoDto);
     }
 }

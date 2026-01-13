@@ -1,12 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SuplementosAPI.Dtos;
-using SuplementosAPI.QueryParams;
+using SuplementosAPI.DTOs;
 using SuplementosAPI.Services;
 
 namespace SuplementosAPI.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class OpinionController : ControllerBase
     {
         private readonly IOpinionService _service;
@@ -16,25 +17,33 @@ namespace SuplementosAPI.Controllers
             _service = service;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] OpinionCreateDto dto)
-        {
-            var opinion = await _service.CreateAsync(dto);
-            return StatusCode(201, opinion);
-        }
+        // ...
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] OpinionQueryParams queryParams)
+        // Aquí devolvemos OpinionDto (porque queremos mostrar el ID y la Fecha)
+        public async Task<ActionResult<IEnumerable<OpinionDto>>> GetAll()
         {
-            var opiniones = await _service.GetAllAsync(queryParams);
-            return Ok(opiniones);
+            return Ok(await _service.GetAllAsync());
         }
 
+        [HttpPost]
+        [Authorize] 
+        // 👇 AQUÍ CAMBIAMOS: Recibimos OpinionCreateDto
+        public async Task<ActionResult> Create(OpinionCreateDto opinionDto)
+        {
+            await _service.AddAsync(opinionDto);
+            return Ok();
+        }
+        
+        // ...
+
+        // 👮‍♂️ SOLO EL ADMIN PUEDE BORRAR UNA OPINIÓN (Moderación)
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Delete(int id)
         {
             await _service.DeleteAsync(id);
-            return NoContent();
+            return Ok();
         }
     }
 }
